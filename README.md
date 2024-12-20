@@ -1,3 +1,1 @@
-# My Portfolio 2024
-
-A personal portfolio website built with Svelte, Three.js and Vite.
+IyBNeSBQb3J0Zm9saW8gMjAyNAoKQSBwZXJzb25hbCBwb3J0Zm9saW8gd2Vic2l0ZSBidWlsdCB3aXRoIFN2ZWx0ZSwgVGhyZWUuanMgYW5kIFZpdGUu
