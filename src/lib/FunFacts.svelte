@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade, fly, scale } from 'svelte/transition';
+  import { fade, fly, scale } from 'svelte/transition.js';
   import { onMount } from 'svelte';
 
   const facts = [
