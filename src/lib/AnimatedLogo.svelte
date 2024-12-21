@@ -3,11 +3,9 @@
   import { fade } from 'svelte/transition';
   
   let visible = false;
-  let interval: number;
   
   onMount(() => {
     visible = true;
-    return () => clearInterval(interval);
   });
 </script>
 
@@ -39,7 +37,7 @@
 
   .logo {
     position: relative;
-    width: 200px;
+    width: 240px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -53,10 +51,9 @@
 
   .text-path {
     fill: url(#logoGradient);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    font-family: 'LEMON MILK', sans-serif;
     font-size: 24px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
   }
 
   .animated-line {
