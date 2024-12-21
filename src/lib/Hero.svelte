@@ -4,11 +4,14 @@
 
   let visible = false;
   let currentText = '';
-  const texts = [
-    "I'm a Frontend Developer",
-    "I love making burgers",
-    "I enjoy hiking"
+  let currentIcon = '';
+  
+  const textContent = [
+    { text: "I'm a Frontend Developer", icon: '💻' },
+    { text: "I love making burgers", icon: '🍔' },
+    { text: "I enjoy hiking", icon: '🏃‍♂️' }
   ];
+  
   let currentIndex = 0;
   let charIndex = 0;
   
@@ -18,8 +21,9 @@
   });
 
   function typeText() {
-    if (charIndex < texts[currentIndex].length) {
-      currentText += texts[currentIndex][charIndex];
+    currentIcon = textContent[currentIndex].icon;
+    if (charIndex < textContent[currentIndex].text.length) {
+      currentText += textContent[currentIndex].text[charIndex];
       charIndex++;
       setTimeout(typeText, 100);
     } else {
@@ -34,7 +38,7 @@
       currentText = currentText.slice(0, -1);
       setTimeout(deleteText, 50);
     } else {
-      currentIndex = (currentIndex + 1) % texts.length;
+      currentIndex = (currentIndex + 1) % textContent.length;
       charIndex = 0;
       setTimeout(typeText, 500);
     }
@@ -44,9 +48,16 @@
 <section class="hero">
   {#if visible}
     <div class="hero-content" in:fade={{ duration: 1000 }}>
+      <div class="image-container" in:fly={{ x: -50, duration: 1000 }}>
+        <img src="/public/images/profile.jpg" alt="Lucas Legrand" class="profile-image">
+      </div>
+      
       <div class="text-content">
         <h1 in:fly={{ y: 50, duration: 1000 }}>Lucas Legrand</h1>
-        <div class="typed-text">{currentText}<span class="cursor">|</span></div>
+        <div class="typed-container">
+          <span class="icon">{currentIcon}</span>
+          <div class="typed-text">{currentText}<span class="cursor">|</span></div>
+        </div>
         
         <div class="social-links" in:fly={{ y: 20, duration: 1000, delay: 500 }}>
           <a href="https://github.com/Pouetpouets" target="_blank" rel="noopener noreferrer" class="social-link">
@@ -70,9 +81,6 @@
           </a>
         </div>
       </div>
-      <div class="image-container" in:fly={{ x: 50, duration: 1000 }}>
-        <img src="/images/profile.jpg" alt="Lucas Legrand" class="profile-image">
-      </div>
     </div>
   {/if}
 </section>
@@ -92,7 +100,6 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 4rem;
   }
 
@@ -109,10 +116,21 @@
     background-clip: text;
   }
 
+  .typed-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .icon {
+    font-size: 2.5rem;
+    min-width: 3rem;
+  }
+
   .typed-text {
     font-size: 2rem;
     min-height: 3rem;
-    margin-bottom: 3rem;
   }
 
   .cursor {
@@ -120,13 +138,16 @@
   }
 
   .image-container {
-    flex: 1;
-    max-width: 500px;
+    flex: 0.8;
+    height: 500px;
+    border-radius: 16px;
+    overflow: hidden;
   }
 
   .profile-image {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     border-radius: 16px;
     box-shadow: 0 0 20px rgba(4, 158, 244, 0.2);
   }
@@ -160,13 +181,18 @@
 
   @media (max-width: 968px) {
     .hero-content {
-      flex-direction: column-reverse;
+      flex-direction: column;
       text-align: center;
       gap: 2rem;
     }
 
     .image-container {
-      max-width: 300px;
+      width: 300px;
+      height: 300px;
+    }
+
+    .typed-container {
+      justify-content: center;
     }
 
     .social-links {
