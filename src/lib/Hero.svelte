@@ -49,7 +49,7 @@
   {#if visible}
     <div class="hero-content" in:fade={{ duration: 1000 }}>
       <div class="image-container" in:fly={{ x: -50, duration: 1000 }}>
-        <img src="/public/images/profile.jpg" alt="Lucas Legrand" class="profile-image">
+        <img src="/public/images/profile.jpeg" alt="Lucas Legrand" class="profile-image">
       </div>
       
       <div class="text-content">
