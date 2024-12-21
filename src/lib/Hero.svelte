@@ -49,7 +49,7 @@
   {#if visible}
     <div class="hero-content" in:fade={{ duration: 1000 }}>
       <div class="image-container" in:fly={{ x: -50, duration: 1000 }}>
-        <img src="/public/images/profile.jpeg" alt="Lucas Legrand" class="profile-image">
+        <img src="/images/profile.jpg" alt="Lucas Legrand" class="profile-image">
       </div>
       
       <div class="text-content">
@@ -89,8 +89,8 @@
   .hero {
     min-height: 100vh;
     padding: 6rem 2rem 2rem;
-    background: #111;
-    color: white;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     display: flex;
     align-items: center;
   }
@@ -110,7 +110,7 @@
   h1 {
     font-size: 3.5rem;
     margin-bottom: 2rem;
-    background: linear-gradient(135deg, #049ef4, #ff0066);
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -131,10 +131,12 @@
   .typed-text {
     font-size: 2rem;
     min-height: 3rem;
+    color: var(--uranian-blue);
   }
 
   .cursor {
     animation: blink 1s infinite;
+    color: var(--fairy-tale);
   }
 
   .image-container {
@@ -142,6 +144,24 @@
     height: 500px;
     border-radius: 16px;
     overflow: hidden;
+    position: relative;
+  }
+
+  .image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    background: var(--gradient-full);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .image-container:hover::after {
+    opacity: 0.2;
   }
 
   .profile-image {
@@ -149,7 +169,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: 16px;
-    box-shadow: 0 0 20px rgba(4, 158, 244, 0.2);
+    box-shadow: 0 0 20px rgba(205, 180, 219, 0.2);
     transition: all 0.3s ease;
   }
 
@@ -172,17 +192,20 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: white;
+    color: var(--text-primary);
     text-decoration: none;
     padding: 0.75rem 1.25rem;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--bg-secondary);
     transition: all 0.3s ease;
+    border: 1px solid transparent;
   }
 
   .social-link:hover {
-    background: rgba(4, 158, 244, 0.2);
+    background: rgba(205, 180, 219, 0.1);
     transform: translateY(-2px);
+    border-color: var(--thistle);
+    color: var(--fairy-tale);
   }
 
   @keyframes blink {
