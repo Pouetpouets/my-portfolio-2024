@@ -1,0 +1,31 @@
+:root {
+  /* Main Colors */
+  --thistle: #cdb4db;
+  --fairy-tale: #ffc8dd;
+  --carnation-pink: #ffafcc;
+  --uranian-blue: #bde0fe;
+  --light-sky-blue: #a2d2ff;
+
+  /* Gradient Backgrounds */
+  --gradient-primary: linear-gradient(135deg, var(--thistle), var(--fairy-tale), var(--carnation-pink));
+  --gradient-secondary: linear-gradient(135deg, var(--uranian-blue), var(--light-sky-blue));
+  --gradient-full: linear-gradient(135deg, var(--thistle), var(--fairy-tale), var(--carnation-pink), var(--uranian-blue), var(--light-sky-blue));
+
+  /* Background Colors */
+  --bg-primary: #111;
+  --bg-secondary: rgba(255, 255, 255, 0.05);
+  
+  /* Text Colors */
+  --text-primary: #fff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+
+  /* Interactive Colors */
+  --hover-color: var(--carnation-pink);
+  --active-color: var(--fairy-tale);
+}
+
+/* Global Styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
