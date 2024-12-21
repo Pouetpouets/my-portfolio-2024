@@ -14,7 +14,7 @@
 
     // Camera setup
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(2, 1.5, 2);
+    camera.position.set(2, 2, 2); // Adjusted for better view of the dog model
 
     // Renderer setup
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -49,10 +49,9 @@
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = false;
-    controls.minDistance = 2;
+    controls.minDistance = 1;
     controls.maxDistance = 10;
-    controls.maxPolarAngle = Math.PI / 2;
-    controls.target.set(0, 1, 0);
+    controls.target.set(0, 0.5, 0); // Focus on the center of the dog
 
     // Loading manager
     const manager = new THREE.LoadingManager();
@@ -63,14 +62,24 @@
     // GLTF Loader
     const loader = new GLTFLoader(manager);
     let model: THREE.Group;
+    let mixer: THREE.AnimationMixer;
 
-    // Load the default coding scene model
+    // Load the voxel dog model
     loader.load(
-      '/models/desk_scene.glb',
+      '/models/voxel_dog.glb',
       (gltf) => {
         model = gltf.scene;
-        model.scale.set(1, 1, 1);
+        model.scale.set(1, 1, 1); // Adjust scale if needed
         model.position.set(0, 0, 0);
+        model.rotation.y = Math.PI * 0.25; // Rotate slightly for better view
+
+        // Setup animations if they exist
+        if (gltf.animations && gltf.animations.length) {
+          mixer = new THREE.AnimationMixer(model);
+          const action = mixer.clipAction(gltf.animations[0]);
+          action.play();
+        }
+
         model.traverse((child) => {
           if (child instanceof THREE.Mesh) {
             child.castShadow = true;
@@ -84,32 +93,41 @@
       },
       (error) => {
         console.error('Error loading model:', error);
-        // Add fallback object if model fails to load
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshPhongMaterial({
-          color: 0x049ef4,
-          wireframe: true
-        });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
       }
     );
 
     // Ground plane
-    const groundGeometry = new THREE.PlaneGeometry(10, 10);
-    const groundMaterial = new THREE.MeshPhongMaterial({ 
+    const groundGeometry = new THREE.CircleGeometry(3, 32);
+    const groundMaterial = new THREE.MeshStandardMaterial({ 
       color: 0x111111,
-      shininess: 0
+      roughness: 0.8,
+      metalness: 0.2
     });
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
     ground.rotation.x = -Math.PI / 2;
-    ground.position.y = -0.1;
+    ground.position.y = -0.001;
     ground.receiveShadow = true;
     scene.add(ground);
+
+    // Clock for animations
+    const clock = new THREE.Clock();
 
     // Animation loop
     function animate() {
       requestAnimationFrame(animate);
+      
+      const delta = clock.getDelta();
+
+      // Update mixer if it exists
+      if (mixer) {
+        mixer.update(delta);
+      }
+
+      // Rotate model slightly
+      if (model) {
+        model.rotation.y += 0.005;
+      }
+
       controls.update();
 
       // Animate point lights
