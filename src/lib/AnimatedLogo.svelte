@@ -15,8 +15,9 @@
     <svg viewBox="0 0 400 50" class="logo-text">
       <defs>
         <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#049ef4" />
-          <stop offset="100%" stop-color="#ff0066" />
+          <stop offset="0%" stop-color="var(--thistle)" />
+          <stop offset="50%" stop-color="var(--fairy-tale)" />
+          <stop offset="100%" stop-color="var(--carnation-pink)" />
         </linearGradient>
       </defs>
       <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" class="text-path">
@@ -63,28 +64,28 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(
-      to right,
-      #049ef4,
-      #ff0066
-    );
+    background: var(--gradient-primary);
     transform-origin: left center;
     animation: lineAnimation 2s infinite;
+    background-size: 200% auto;
   }
 
   @keyframes lineAnimation {
     0% {
       transform: scaleX(0);
       opacity: 0;
+      background-position: left center;
     }
     50% {
       transform: scaleX(1);
       opacity: 1;
+      background-position: right center;
     }
     100% {
       transform: scaleX(0);
       opacity: 0;
       transform-origin: right center;
+      background-position: left center;
     }
   }
 </style>
