@@ -12,13 +12,13 @@
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#111111');
 
-    // Camera setup - Moved further back
+    // Camera setup
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(5, 5, 5); // Increased distance
+    camera.position.set(3, 3, 3); // Adjusted camera position
 
     // Renderer setup
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -28,20 +28,17 @@
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(5, 5, 5);
-    directionalLight.castShadow = true;
-    directionalLight.shadow.mapSize.width = 2048;
-    directionalLight.shadow.mapSize.height = 2048;
-    scene.add(directionalLight);
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1);
+    mainLight.position.set(5, 5, 5);
+    mainLight.castShadow = true;
+    mainLight.shadow.mapSize.width = 2048;
+    mainLight.shadow.mapSize.height = 2048;
+    scene.add(mainLight);
 
-    // Add point lights for better model illumination
+    // Animated point lights
     const pointLight1 = new THREE.PointLight(0x049ef4, 2);
-    pointLight1.position.set(2, 3, 4);
-    scene.add(pointLight1);
-
     const pointLight2 = new THREE.PointLight(0xff0066, 2);
-    pointLight2.position.set(-2, 3, -4);
+    scene.add(pointLight1);
     scene.add(pointLight2);
 
     // Controls
@@ -49,9 +46,10 @@
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = false;
-    controls.minDistance = 1;
-    controls.maxDistance = 10;
-    controls.target.set(0, 0.5, 0); // Focus on the center of the dog
+    controls.minDistance = 2;
+    controls.maxDistance = 5;
+    controls.maxPolarAngle = Math.PI / 2;
+    controls.target.set(0, 0.5, 0);
 
     // Loading manager
     const manager = new THREE.LoadingManager();
@@ -64,15 +62,14 @@
     let model: THREE.Group;
     let mixer: THREE.AnimationMixer;
 
-    // Load the voxel dog model
+    // Load the model
     loader.load(
       '/models/voxel_dog.glb',
       (gltf) => {
         model = gltf.scene;
-        model.scale.set(1, 1, 1); // Adjust scale if needed
+        model.scale.set(0.5, 0.5, 0.5); // Reduced scale
         model.position.set(0, 0, 0);
-        model.rotation.y = Math.PI * 0.25; // Rotate slightly for better view
-
+        
         // Setup animations if they exist
         if (gltf.animations && gltf.animations.length) {
           mixer = new THREE.AnimationMixer(model);
@@ -97,7 +94,7 @@
     );
 
     // Ground plane
-    const groundGeometry = new THREE.CircleGeometry(3, 32);
+    const groundGeometry = new THREE.CircleGeometry(2, 32);
     const groundMaterial = new THREE.MeshStandardMaterial({ 
       color: 0x111111,
       roughness: 0.8,
@@ -118,42 +115,46 @@
       
       const delta = clock.getDelta();
 
-      // Update mixer if it exists
       if (mixer) {
         mixer.update(delta);
       }
 
-      // Rotate model slightly
       if (model) {
         model.rotation.y += 0.005;
       }
 
-      controls.update();
-
-      // Animate point lights
+      // Animate point lights in a circle
       const time = Date.now() * 0.001;
-      pointLight1.position.x = Math.sin(time) * 3;
-      pointLight1.position.z = Math.cos(time) * 3;
-      pointLight2.position.x = Math.sin(time + Math.PI) * 3;
-      pointLight2.position.z = Math.cos(time + Math.PI) * 3;
+      pointLight1.position.x = Math.sin(time) * 2;
+      pointLight1.position.z = Math.cos(time) * 2;
+      pointLight1.position.y = 2;
+      
+      pointLight2.position.x = Math.sin(time + Math.PI) * 2;
+      pointLight2.position.z = Math.cos(time + Math.PI) * 2;
+      pointLight2.position.y = 2;
 
+      controls.update();
       renderer.render(scene, camera);
     }
 
-    // Handle window resize
+    // Handle container resize
     function handleResize() {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(width, height);
     }
 
-    window.addEventListener('resize', handleResize);
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(container);
+
     animate();
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
       container.removeChild(renderer.domElement);
-      // Cleanup Three.js resources
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh) {
           object.geometry.dispose();
@@ -165,8 +166,7 @@
   });
 </script>
 
-<div class="scene-container">
-  <div bind:this={container} class="canvas-container" />
+<div bind:this={container} class="scene-container">
   {#if loadingProgress < 100}
     <div class="loading-overlay">
       <div class="loading-spinner" />
@@ -180,11 +180,6 @@
     width: 100%;
     height: 100%;
     position: relative;
-  }
-
-  .canvas-container {
-    width: 100%;
-    height: 100%;
   }
 
   .loading-overlay {
@@ -202,8 +197,8 @@
   }
 
   .loading-spinner {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border: 3px solid #049ef4;
     border-top: 3px solid transparent;
     border-radius: 50%;
@@ -212,7 +207,7 @@
   }
 
   .loading-text {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #049ef4;
   }
 
