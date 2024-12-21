@@ -11,7 +11,7 @@
     <div class="nav-links">
       <a href="#projects">Projects</a>
       <a href="#funfacts">Fun Facts</a>
-      <button class="contact-btn">Contact</button>
+      <a href="#contact" class="contact-btn">Contact</a>
     </div>
   </div>
 </nav>
@@ -24,8 +24,9 @@
     width: 100%;
     padding: 1rem 2rem;
     z-index: 100;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(17, 17, 17, 0.8);
     backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(205, 180, 219, 0.1);
   }
 
   .nav-content {
@@ -43,29 +44,52 @@
   }
 
   a {
-    color: white;
+    color: var(--text-primary);
     text-decoration: none;
     font-size: 1rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    position: relative;
   }
 
-  a:hover {
-    color: #049ef4;
+  a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 
   .contact-btn {
-    background: #049ef4;
-    color: white;
+    background: var(--gradient-primary);
+    color: var(--text-primary);
     border: none;
     padding: 0.5rem 1.5rem;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    background-size: 200% auto;
   }
 
   .contact-btn:hover {
-    background: #0384d0;
+    background-position: right center;
+    transform: translateY(-2px);
+  }
+
+  .contact-btn::after {
+    display: none;
   }
 
   @media (max-width: 768px) {
