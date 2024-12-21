@@ -2,52 +2,69 @@
   import { fade, fly } from 'svelte/transition';
   import { onMount } from 'svelte';
 
-  const projects = [
-    {
-      title: "Project 1",
-      description: "Description of project 1. This is a brief overview of what the project does and what technologies were used.",
-      tags: ["React", "Node.js", "MongoDB"],
-      image: "/api/placeholder/400/300"
-    },
-    {
-      title: "Project 2",
-      description: "Description of project 2. Highlighting the key features and challenges overcome during development.",
-      tags: ["Svelte", "Three.js", "TypeScript"],
-      image: "/api/placeholder/400/300"
-    },
-    {
-      title: "Project 3",
-      description: "Description of project 3. Showcasing the problem solved and the impact of the solution.",
-      tags: ["Vue", "Express", "PostgreSQL"],
-      image: "/api/placeholder/400/300"
-    }
-  ];
-
   let visible = false;
+  let repositories = [];
   
-  onMount(() => {
+  onMount(async () => {
     visible = true;
+    try {
+      const response = await fetch('https://api.github.com/users/Pouetpouets/repos?sort=updated&per_page=6');
+      repositories = await response.json();
+    } catch (error) {
+      console.error('Error fetching repositories:', error);
+    }
   });
+
+  function formatDate(dateString: string) {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    }).format(date);
+  }
 </script>
 
 <section id="projects">
   {#if visible}
     <div class="content" in:fade={{duration: 1000}}>
-      <h2 in:fly={{y: 50, duration: 1000}}>Projects</h2>
+      <h2 in:fly={{y: 50, duration: 1000}}>Projects & Contributions</h2>
+      <div class="github-stats">
+        <a href="https://github.com/Pouetpouets" target="_blank" rel="noopener noreferrer" class="github-profile">
+          <img 
+            src="https://github-readme-stats.vercel.app/api?username=Pouetpouets&show_icons=true&theme=tokyonight&hide_border=true"
+            alt="GitHub Stats"
+            class="stats-card"
+          />
+        </a>
+      </div>
       <div class="projects-grid">
-        {#each projects as project, i}
+        {#each repositories as repo}
           <div 
             class="project-card"
-            in:fly={{y: 50, duration: 1000, delay: 200 * i}}
+            in:fly={{y: 50, duration: 1000}}
           >
-            <img src={project.image} alt={project.title} />
             <div class="project-info">
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
+              <h3>
+                <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+                  {repo.name}
+                </a>
+              </h3>
+              <p>{repo.description || 'No description available'}</p>
+              <div class="repo-meta">
+                <span class="language" style="color: {repo.language === 'JavaScript' ? '#f1e05a' : 
+                                                    repo.language === 'TypeScript' ? '#2b7489' : 
+                                                    repo.language === 'Ruby' ? '#701516' : '#049ef4'}">
+                  ● {repo.language || 'Unknown'}
+                </span>
+                <span class="date">Updated: {formatDate(repo.updated_at)}</span>
+              </div>
               <div class="tags">
-                {#each project.tags as tag}
-                  <span class="tag">{tag}</span>
-                {/each}
+                {#if repo.topics && repo.topics.length}
+                  {#each repo.topics as topic}
+                    <span class="tag">{topic}</span>
+                  {/each}
+                {/if}
               </div>
             </div>
           </div>
@@ -76,6 +93,23 @@
     text-align: center;
   }
 
+  .github-stats {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .stats-card {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .stats-card:hover {
+    transform: translateY(-5px);
+  }
+
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -87,16 +121,11 @@
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.3s ease;
+    height: 100%;
   }
 
   .project-card:hover {
     transform: translateY(-5px);
-  }
-
-  img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
   }
 
   .project-info {
@@ -108,10 +137,29 @@
     margin-bottom: 1rem;
   }
 
+  h3 a {
+    color: #049ef4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  h3 a:hover {
+    color: #ff0066;
+  }
+
   p {
     color: #ccc;
     margin-bottom: 1rem;
     line-height: 1.6;
+  }
+
+  .repo-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #888;
   }
 
   .tags {
@@ -121,10 +169,16 @@
   }
 
   .tag {
-    background: #049ef4;
-    color: white;
+    background: rgba(4, 158, 244, 0.2);
+    color: #049ef4;
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
     font-size: 0.875rem;
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
