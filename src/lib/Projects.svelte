@@ -31,7 +31,6 @@
       <h2 in:fly={{y: 50, duration: 1000}}>Latest Projects & Contributions</h2>
       
       <div class="github-stats">
-        <!-- GitHub Stats Card -->
         <div class="stats-wrapper" in:fly={{y: 50, duration: 1000, delay: 200}}>
           <a href="https://github.com/Pouetpouets" target="_blank" rel="noopener noreferrer" class="github-profile">
             <img 
@@ -42,7 +41,6 @@
           </a>
         </div>
 
-        <!-- Languages Card -->
         <div class="stats-wrapper" in:fly={{y: 50, duration: 1000, delay: 400}}>
           <img 
             src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pouetpouets&layout=compact&theme=tokyonight&hide_border=true"
@@ -50,15 +48,6 @@
             class="stats-card"
           />
         </div>
-      </div>
-
-      <!-- Contribution Graph -->
-      <div class="contributions" in:fly={{y: 50, duration: 1000, delay: 600}}>
-        <img 
-          src="https://github-readme-activity-graph.vercel.app/graph?username=Pouetpouets&theme=react-dark&hide_border=true"
-          alt="Contribution Graph"
-          class="contribution-graph"
-        />
       </div>
 
       <h3 class="recent-title" in:fly={{y: 50, duration: 1000}}>Recent Projects</h3>
@@ -146,24 +135,6 @@
   }
 
   .stats-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .contributions {
-    margin: 3rem 0;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 10px;
-  }
-
-  .contribution-graph {
-    width: 100%;
-    height: auto;
-    min-height: 200px;
-    transition: transform 0.3s ease;
-  }
-
-  .contribution-graph:hover {
     transform: translateY(-5px);
   }
 
