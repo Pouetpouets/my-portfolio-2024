@@ -67,7 +67,7 @@
               <div class="repo-meta">
                 <span class="language" style="color: {repo.language === 'JavaScript' ? '#f1e05a' : 
                                                     repo.language === 'TypeScript' ? '#2b7489' : 
-                                                    repo.language === 'Ruby' ? '#701516' : '#049ef4'}">
+                                                    repo.language === 'Ruby' ? '#701516' : 'var(  --light-sky-blue)'}">
                   ● {repo.language || 'Unknown'}
                 </span>
                 <span class="date">Updated: {formatDate(repo.updated_at)}</span>
@@ -110,7 +110,7 @@
     font-size: 2rem;
     margin: 3rem 0;
     text-align: center;
-    color: #049ef4;
+    color: var(--light-sky-blue);
   }
 
   .github-stats {
@@ -166,13 +166,13 @@
   }
 
   h4 a {
-    color: #049ef4;
+    color: var(  --light-sky-blue);
     text-decoration: none;
     transition: color 0.3s ease;
   }
 
   h4 a:hover {
-    color: #ff0066;
+    color: var(--uranian-blue);
   }
 
   p {
@@ -198,7 +198,7 @@
 
   .tag {
     background: rgba(4, 158, 244, 0.2);
-    color: #049ef4;
+    color: var(  --light-sky-blue);
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
     font-size: 0.875rem;

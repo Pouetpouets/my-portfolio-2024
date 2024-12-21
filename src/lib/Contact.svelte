@@ -50,7 +50,7 @@
     font-size: 2.5rem;
     margin-bottom: 2rem;
     text-align: center;
-    background: linear-gradient(135deg, #049ef4, #ff0066);
+    background: linear-gradient(135deg, var(--light-sky-blue), var(--uranian-blue));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -82,11 +82,11 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: #049ef4;
+    color: var(  --light-sky-blue);
     text-decoration: none;
     font-size: 1.1rem;
     padding: 1rem 1.5rem;
-    border: 2px solid #049ef4;
+    border: 2px solid var(  --light-sky-blue);
     border-radius: 8px;
     transition: all 0.3s ease;
   }

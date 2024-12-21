@@ -15,8 +15,8 @@
     <svg viewBox="0 0 400 50" class="logo-text">
       <defs>
         <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="var(--thistle)" />
-          <stop offset="50%" stop-color="var(--fairy-tale)" />
+          <stop offset="0%" stop-color="var(--light-sky-blue)" />
+          <stop offset="50%" stop-color="var(--light-sky-blue)" />
           <stop offset="100%" stop-color="var(--carnation-pink)" />
         </linearGradient>
       </defs>

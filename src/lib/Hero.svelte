@@ -9,7 +9,7 @@
   const textContent = [
     { text: "I'm a Frontend Developer", icon: '💻' },
     { text: "I love making burgers", icon: '🍔' },
-    { text: "I enjoy hiking", icon: '🏃‍♂️' }
+    { text: "I enjoy trails", icon: '🏃‍♂️' }
   ];
   
   let currentIndex = 0;
@@ -64,20 +64,17 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
             </svg>
-            GitHub
           </a>
           <a href="https://twitter.com/lgrdlcs" target="_blank" rel="noopener noreferrer" class="social-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
             </svg>
-            Twitter
           </a>
           <a href="mailto:legrand.lucas0@gmail.com" class="social-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
               <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
-            Email
           </a>
         </div>
       </div>
@@ -110,7 +107,8 @@
   h1 {
     font-size: 3.5rem;
     margin-bottom: 2rem;
-    background: var(--gradient-primary);
+    width: 30rem;
+    background: var(--light-sky-blue);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -136,18 +134,18 @@
 
   .cursor {
     animation: blink 1s infinite;
-    color: var(--fairy-tale);
+    color: var(--light-sky-blue);
   }
 
   .image-container {
     flex: 0.8;
-    height: 500px;
-    border-radius: 16px;
+    height: 300px;
+    border-radius: 50px;
     overflow: hidden;
     position: relative;
   }
 
-  .image-container::after {
+  /* .image-container::after {
     content: '';
     position: absolute;
     top: 0;
@@ -158,7 +156,7 @@
     background: var(--gradient-full);
     opacity: 0;
     transition: opacity 0.3s ease;
-  }
+  } */
 
   .image-container:hover::after {
     opacity: 0.2;
@@ -204,8 +202,8 @@
   .social-link:hover {
     background: rgba(205, 180, 219, 0.1);
     transform: translateY(-2px);
-    border-color: var(--thistle);
-    color: var(--fairy-tale);
+    border-color: var(--light-sky-blue);
+    color: var(--light-sky-blue);
   }
 
   @keyframes blink {

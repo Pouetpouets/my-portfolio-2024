@@ -199,7 +199,7 @@
   .loading-spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid #049ef4;
+    border: 3px solid var(  --light-sky-blue);
     border-top: 3px solid transparent;
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -208,7 +208,7 @@
 
   .loading-text {
     font-size: 1rem;
-    color: #049ef4;
+    color: var(  --light-sky-blue);
   }
 
   @keyframes spin {

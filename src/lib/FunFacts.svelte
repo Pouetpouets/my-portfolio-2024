@@ -4,25 +4,25 @@
 
   const facts = [
     {
-      icon: "🌎",
-      title: "Traveler",
-      description: "Visited 20+ countries across 4 continents"
+      icon: "🤖",
+      title: "Claude Ai",
+      description: "This site was mostly generated with Claude Ai"
     },
     {
-      icon: "🎸",
-      title: "Musician",
-      description: "Play guitar and piano in my free time"
+      icon: "⚡",
+      title: "Code",
+      description: "I still don't know how to setup ESLint and Prettier in VSCode (and at this point, I'm too afraid to ask)"
+    },
+    {
+      icon: "⌨",
+      title: "Gamer",
+      description: "I used to manage League of Legends player for a living"
     },
     {
       icon: "🏃‍♂️",
       title: "Runner",
       description: "Completed 3 marathons and counting"
     },
-    {
-      icon: "📚",
-      title: "Bookworm",
-      description: "Read 30 books per year on average"
-    }
   ];
 
   let visible = false;
@@ -102,7 +102,7 @@
   h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #049ef4;
+    color: var(  --light-sky-blue);
   }
 
   p {
