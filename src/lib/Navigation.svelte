@@ -1,11 +1,11 @@
 <script lang="ts">
-  const name = "Lucas"; // You can change this to your full name
+  import AnimatedLogo from './AnimatedLogo.svelte';
 </script>
 
 <nav>
   <div class="nav-content">
     <div class="logo">
-      {name}
+      <AnimatedLogo />
     </div>
     
     <div class="nav-links">
@@ -22,7 +22,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1.5rem 2rem;
+    padding: 1rem 2rem;
     z-index: 100;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
@@ -34,14 +34,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
   }
 
   .nav-links {
