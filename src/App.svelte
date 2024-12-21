@@ -7,7 +7,9 @@
 
 <main>
   <Navigation />
-  <ThreeScene />
+  <div class="scene-wrapper">
+    <ThreeScene />
+  </div>
   <Projects />
   <FunFacts />
 </main>
@@ -15,7 +17,11 @@
 <style>
   main {
     width: 100vw;
-    overflow-x: hidden;
     background: #000;
+  }
+
+  .scene-wrapper {
+    height: 100vh;
+    overflow: hidden;
   }
 </style>
