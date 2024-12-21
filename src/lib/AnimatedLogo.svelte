@@ -19,7 +19,7 @@
           <stop offset="100%" stop-color="#ff0066" />
         </linearGradient>
       </defs>
-      <text x="50%" y="50%" text-anchor="middle" class="text-path">
+      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" class="text-path">
         Lucas Legrand
       </text>
     </svg>
@@ -37,8 +37,8 @@
 
   .logo {
     position: relative;
-    width: 240px;
-    height: 40px;
+    width: 280px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,13 +52,14 @@
   .text-path {
     fill: url(#logoGradient);
     font-family: 'LEMON MILK', sans-serif;
-    font-size: 24px;
-    letter-spacing: 1px;
+    font-size: 28px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
   }
 
   .animated-line {
     position: absolute;
-    bottom: -2px;
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 2px;
