@@ -49,7 +49,7 @@
   {#if visible}
     <div class="hero-content" in:fade={{ duration: 1000 }}>
       <div class="image-container" in:fly={{ x: -50, duration: 1000 }}>
-        <img src="/public/images/profile.jpeg" alt="Lucas Legrand" class="profile-image">
+        <img src="/images/profile.jpg" alt="Lucas Legrand" class="profile-image">
       </div>
       
       <div class="text-content">
@@ -150,6 +150,17 @@
     object-fit: cover;
     border-radius: 16px;
     box-shadow: 0 0 20px rgba(4, 158, 244, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .profile-image:hover {
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
   }
 
   .social-links {
