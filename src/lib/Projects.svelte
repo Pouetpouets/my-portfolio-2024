@@ -8,7 +8,7 @@
   onMount(async () => {
     visible = true;
     try {
-      const response = await fetch('https://api.github.com/users/Pouetpouets/repos?sort=updated&per_page=6');
+      const response = await fetch('https://api.github.com/users/Pouetpouets/repos?sort=updated&per_page=3');
       repositories = await response.json();
     } catch (error) {
       console.error('Error fetching repositories:', error);
@@ -28,16 +28,40 @@
 <section id="projects">
   {#if visible}
     <div class="content" in:fade={{duration: 1000}}>
-      <h2 in:fly={{y: 50, duration: 1000}}>Projects & Contributions</h2>
+      <h2 in:fly={{y: 50, duration: 1000}}>Latest Projects & Contributions</h2>
+      
       <div class="github-stats">
-        <a href="https://github.com/Pouetpouets" target="_blank" rel="noopener noreferrer" class="github-profile">
+        <!-- GitHub Stats Card -->
+        <div class="stats-wrapper" in:fly={{y: 50, duration: 1000, delay: 200}}>
+          <a href="https://github.com/Pouetpouets" target="_blank" rel="noopener noreferrer" class="github-profile">
+            <img 
+              src="https://github-readme-stats.vercel.app/api?username=Pouetpouets&show_icons=true&theme=tokyonight&hide_border=true&count_private=true"
+              alt="GitHub Stats"
+              class="stats-card"
+            />
+          </a>
+        </div>
+
+        <!-- Languages Card -->
+        <div class="stats-wrapper" in:fly={{y: 50, duration: 1000, delay: 400}}>
           <img 
-            src="https://github-readme-stats.vercel.app/api?username=Pouetpouets&show_icons=true&theme=tokyonight&hide_border=true"
-            alt="GitHub Stats"
+            src="https://github-readme-stats.vercel.app/api/top-langs/?username=Pouetpouets&layout=compact&theme=tokyonight&hide_border=true"
+            alt="Top Languages"
             class="stats-card"
           />
-        </a>
+        </div>
       </div>
+
+      <!-- Contribution Graph -->
+      <div class="contributions" in:fly={{y: 50, duration: 1000, delay: 600}}>
+        <img 
+          src="https://github-readme-activity-graph.vercel.app/graph?username=Pouetpouets&theme=react-dark&hide_border=true"
+          alt="Contribution Graph"
+          class="contribution-graph"
+        />
+      </div>
+
+      <h3 class="recent-title" in:fly={{y: 50, duration: 1000}}>Recent Projects</h3>
       <div class="projects-grid">
         {#each repositories as repo}
           <div 
@@ -45,11 +69,11 @@
             in:fly={{y: 50, duration: 1000}}
           >
             <div class="project-info">
-              <h3>
+              <h4>
                 <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
                   {repo.name}
                 </a>
-              </h3>
+              </h4>
               <p>{repo.description || 'No description available'}</p>
               <div class="repo-meta">
                 <span class="language" style="color: {repo.language === 'JavaScript' ? '#f1e05a' : 
@@ -93,20 +117,53 @@
     text-align: center;
   }
 
+  .recent-title {
+    font-size: 2rem;
+    margin: 3rem 0;
+    text-align: center;
+    color: #049ef4;
+  }
+
   .github-stats {
     display: flex;
     justify-content: center;
+    gap: 2rem;
     margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .stats-wrapper {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
   }
 
   .stats-card {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     border-radius: 10px;
     transition: transform 0.3s ease;
   }
 
   .stats-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .contributions {
+    margin: 3rem 0;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .contribution-graph {
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+    transition: transform 0.3s ease;
+  }
+
+  .contribution-graph:hover {
     transform: translateY(-5px);
   }
 
@@ -132,18 +189,18 @@
     padding: 1.5rem;
   }
 
-  h3 {
+  h4 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
 
-  h3 a {
+  h4 a {
     color: #049ef4;
     text-decoration: none;
     transition: color 0.3s ease;
   }
 
-  h3 a:hover {
+  h4 a:hover {
     color: #ff0066;
   }
 
@@ -179,6 +236,15 @@
   @media (max-width: 768px) {
     .projects-grid {
       grid-template-columns: 1fr;
+    }
+
+    .github-stats {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stats-wrapper {
+      width: 100%;
     }
   }
 </style>
