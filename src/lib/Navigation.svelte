@@ -5,8 +5,12 @@
 <nav>
   <div class="nav-content">
     <div class="logo">
-      <AnimatedLogo />
+      <!-- <AnimatedLogo /> -->
+       <h1>
+         Lucas Legrand
+       </h1>
     </div>
+
     
     <div class="nav-links">
       <a href="#projects">Projects</a>
@@ -24,7 +28,6 @@
     width: 100%;
     padding: 1rem 2rem;
     z-index: 100;
-    background: rgba(17, 17, 17, 0.8);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(205, 180, 219, 0.1);
   }
@@ -72,7 +75,7 @@
   }
 
   .contact-btn {
-    background: var(--gradient-primary);
+    background: var( --light-sky-blue);
     color: var(--text-primary);
     border: none;
     padding: 0.5rem 1.5rem;
